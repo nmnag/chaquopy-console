@@ -3,6 +3,7 @@ package com.chaquo.python.console;
 import android.app.*;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,7 +14,7 @@ import com.chaquo.python.utils.*;
 
 public class MainActivity extends PythonConsoleActivity {
 
-    String textView;
+    public static String textView;
     Button btn_fp;
     Intent myfileintent;
 
@@ -57,13 +58,12 @@ public class MainActivity extends PythonConsoleActivity {
         return Task.class;
     }
 
-    public static class Task extends PythonConsoleActivity.Task {
-        public Task(Application app) {
-            super(app);
-        }
+    public static class Task extends PythonConsoleActivity.Task  {
+
+        public Task(Application app) { super(app);}
 
         @Override public void run() {
-            py.getModule("main(textview)").callAttr("main(textview)");
+            py.getModule("main").callAttr("main", textView );
         }
     }
 }
